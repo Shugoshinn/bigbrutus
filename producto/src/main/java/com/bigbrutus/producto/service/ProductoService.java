@@ -1,5 +1,7 @@
 package com.bigbrutus.producto.service;
 
+import com.bigbrutus.producto.dto.ProductoDTO;
+import com.bigbrutus.producto.mapper.ProuctoMapper;
 import com.bigbrutus.producto.model.Producto;
 import com.bigbrutus.producto.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,15 @@ public class ProductoService {
 
     @Autowired
     private ProductoRepository productoRepository;
+    @Autowired
+    private ProuctoMapper prouctoMapper;
 
     public List<Producto> findAll(){
         return productoRepository.findAll();
+    }
+
+    public Producto findById(Long id_producto){
+        return productoRepository.findById(id_producto).orElse(null);
     }
 
     public Producto save(Producto p){
@@ -35,5 +43,13 @@ public class ProductoService {
         productoActualizar.setStock(producto.getStock());
 
         return productoRepository.save(productoActualizar);
+    }
+
+    public ProductoDTO findDTO(Long id){
+        return prouctoMapper.toDTO(findById(id));
+    }
+
+    public List<ProductoDTO> findDTOList(){
+        return prouctoMapper.toDTOList(findAll());
     }
 }

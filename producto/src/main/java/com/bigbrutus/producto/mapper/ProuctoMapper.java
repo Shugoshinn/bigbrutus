@@ -4,6 +4,8 @@ import com.bigbrutus.producto.dto.ProductoDTO;
 import com.bigbrutus.producto.model.Producto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProuctoMapper {
 
@@ -19,5 +21,9 @@ public class ProuctoMapper {
         productoDTO.setDisponible(productoDTO.isDisponible());
 
         return productoDTO;
+    }
+
+    public List<ProductoDTO> toDTOList(List<Producto> listado){
+        return listado.stream().map(this::toDTO).toList();
     }
 }
