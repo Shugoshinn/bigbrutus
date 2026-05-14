@@ -25,6 +25,25 @@ public class ClienteService {
         Cliente cliente =clienteRepository.findById(id_cliente).orElse(null);
         return clienteMapper.toDTO(cliente);
     }
+    public Cliente save(Cliente c){
+        return clienteRepository.save(c);
+    }
+    public void delete(Long id_cliente){
+        clienteRepository.deleteById(id_cliente);
+    }
+
+    public Cliente update(Long id_cliente, Cliente cliente){
+        Cliente clienteActualizar = clienteRepository.findById(id_cliente).orElse(null);
+        if (clienteActualizar == null) return null;
+        clienteActualizar.setNombre(cliente.getNombre());
+        clienteActualizar.setApellido(cliente.getApellido());
+        clienteActualizar.setTelefono(cliente.getTelefono());
+        clienteActualizar.setEmail(cliente.getEmail());
+        clienteActualizar.setFechaRegistro(cliente.getFechaRegistro());
+        clienteActualizar.setActivo(cliente.isActivo());
+
+        return clienteRepository.save(clienteActualizar);
+    }
 
 
 
