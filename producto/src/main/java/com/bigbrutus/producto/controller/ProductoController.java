@@ -53,7 +53,7 @@ public class ProductoController {
         if (producto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(producto);
     }
-    
+
     @GetMapping("/listado")
     public ResponseEntity<?> listarDTO(){
         return ResponseEntity.ok(productoService.findDTOList());
