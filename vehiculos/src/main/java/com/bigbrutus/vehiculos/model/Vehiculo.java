@@ -1,38 +1,54 @@
 package com.bigbrutus.vehiculos.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.Year;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Vehiculo")
+@Table(name = "vehiculo")
 public class Vehiculo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_vehiculo;
 
-    @NotBlank
+    @NotBlank(message = "La patente no puede estar vacía!")
+    @Column(nullable = false, unique = true, length = 8)
+    @Size(min = 5, max = 10)
+    @Pattern(
+            regexp = "^[A-Z0-9-]+$",
+            message = "La patente solo puede contener letras mayúsculas, números y guiones"
+    )
     private String patente;
 
-    @NotBlank
+    @NotBlank(message = "La marca no puede estar vacía!")
+    @Size(max = 50)
     private String marca;
 
-    @NotBlank
+    @NotBlank(message = "El modelo no puede estar vacío!")
+    @Size(max = 50)
     private String modelo;
 
     @NotNull
-    private int anio;
+    @Min(value = 1800, message = "El año debe ser válido! (Mayor a 1800)")
+    @Max(value = 2100, message = "El año debe ser válido! (Menor a 2100)")
+    private Integer anio;
 
-    @NotBlank
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Por favor, ingresar un tipo de vehículo! [MOTO, SCOOTER, AUTO]")
+    private TipoVehiculo tipo;
 
-    @NotBlank
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Por favor, ingresar un estado del vehículo! [DISPONIBLE, EN_REPARTO, MANTENCION, FUERA_DE_SERVICIO]")
+    private EstadoVehiculo estado;
+
 }
