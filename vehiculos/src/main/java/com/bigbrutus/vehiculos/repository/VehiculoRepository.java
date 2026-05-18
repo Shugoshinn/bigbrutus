@@ -1,5 +1,7 @@
 package com.bigbrutus.vehiculos.repository;
 
+import com.bigbrutus.vehiculos.model.EstadoVehiculo;
+import com.bigbrutus.vehiculos.model.TipoVehiculo;
 import com.bigbrutus.vehiculos.model.Vehiculo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,9 @@ public interface VehiculoRepository extends JpaRepository<Vehiculo,Long> {
     // Metodo Buscar un vehículo por su patente
     Optional<Vehiculo> findByPatente(String patente);
 
-    // Listar todos los vehículos según su estado
-    List<Vehiculo> findAllByEstado(String estado);
+    // Metodo Buscar un vehículos según su estado
+    List<Vehiculo> findAllByEstado(EstadoVehiculo estado);
+
+    // Metodo Buscar un vehículos según su tipo
+    List<Vehiculo> findAllByTipo(TipoVehiculo tipo);
 }

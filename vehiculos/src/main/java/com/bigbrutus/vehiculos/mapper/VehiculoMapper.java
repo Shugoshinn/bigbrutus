@@ -13,9 +13,9 @@ public class VehiculoMapper {
 
         VehiculoDTO vehiculoDTO = new VehiculoDTO();
 
-        vehiculoDTO.setIdVehiculo(vehiculo.getId_vehiculo());
+        vehiculoDTO.setIdVehiculo(vehiculo.getIdVehiculo());
         vehiculoDTO.setPatente(vehiculo.getPatente());
-        vehiculoDTO.setInfoVehiculo(vehiculo.getTipo()+" marca "+vehiculo.getMarca()+ ", modelo "+vehiculo.getModelo());
+        vehiculoDTO.setInfoVehiculo(vehiculo.getTipo()+" "+vehiculo.getMarca()+ " " +vehiculo.getModelo());
         vehiculoDTO.setEstado(vehiculo.getEstado());
 
         return vehiculoDTO;

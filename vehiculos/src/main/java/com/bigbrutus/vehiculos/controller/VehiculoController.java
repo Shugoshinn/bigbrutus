@@ -76,7 +76,7 @@ public class VehiculoController {
     // *** ENDPOINTS PERSONALIZADOS ***
 
     // Buscar por patente
-    @GetMapping("/{patente}")
+    @GetMapping("/patente/{patente}")
     public ResponseEntity<?> buscarPorPatente(@PathVariable String patente){
         try {
             VehiculoDTO vehiculoDTO = vehiculoService.findByPatente(patente);
@@ -88,23 +88,23 @@ public class VehiculoController {
     }
 
     // Listar por Estado
-    @GetMapping("/listar-por-estado")
+    @GetMapping("/listar-por-estado/{estado}")
     public ResponseEntity<?> listarPorEstadoDTO(@PathVariable EstadoVehiculo estado) {
         return ResponseEntity.ok(vehiculoService.findAllByEstado(estado));
     }
 
     // Listar por tipo
-    @GetMapping("/listar-por-tipo")
+    @GetMapping("/listar-por-tipo/{tipo}")
     public ResponseEntity<?> listarPorTipoDTO(@PathVariable TipoVehiculo tipo) {
         return ResponseEntity.ok(vehiculoService.findAllByTipo(tipo));
     }
 
     // Actualizar Solo Estado
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id}/{estado}")
     public ResponseEntity<Vehiculo> actualizarEstado(@PathVariable Long id,
-                                                     @Valid @RequestBody EstadoVehiculo nuevoEstado){
+                                                     @PathVariable EstadoVehiculo estado){
         try {
-            Vehiculo actualizado = vehiculoService.updateEstado(id,nuevoEstado);
+            Vehiculo actualizado = vehiculoService.updateEstado(id,estado);
             return ResponseEntity.ok(actualizado);
         } catch (RuntimeException e){
             return ResponseEntity.notFound().build();

@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.Year;
-
 
 @Data
 @NoArgsConstructor
@@ -19,7 +16,8 @@ public class Vehiculo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_vehiculo;
+    @Column(name = "id_vehiculo")
+    private Long idVehiculo;
 
     @NotBlank(message = "La patente no puede estar vacía!")
     @Column(nullable = false, unique = true, length = 8)
@@ -44,11 +42,11 @@ public class Vehiculo {
     private Integer anio;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Por favor, ingresar un tipo de vehículo! [MOTO, SCOOTER, AUTO]")
+    @NotNull(message = "Por favor, ingresar un tipo de vehículo! [MOTO, SCOOTER, AUTO]")
     private TipoVehiculo tipo;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Por favor, ingresar un estado del vehículo! [DISPONIBLE, EN_REPARTO, MANTENCION, FUERA_DE_SERVICIO]")
+    @NotNull(message = "Por favor, ingresar un estado del vehículo! [DISPONIBLE, EN_REPARTO, MANTENCION, FUERA_DE_SERVICIO]")
     private EstadoVehiculo estado;
 
 }

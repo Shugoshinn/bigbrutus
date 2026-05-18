@@ -91,8 +91,7 @@ public class VehiculoService {
     }
     // Listar por Estado FORMATO DTO
     public List<VehiculoDTO> findAllByEstado(EstadoVehiculo estado){
-        String estadoString = estado.toString();
-        List<Vehiculo> listaVehiculos = vehiculoRepository.findAllByEstado(estadoString);
+        List<Vehiculo> listaVehiculos = vehiculoRepository.findAllByEstado(estado);
         List<VehiculoDTO> listaVehiculosDTO = new ArrayList<>();
         for (Vehiculo v : listaVehiculos) {
             listaVehiculosDTO.add(vehiculoMapper.toDTO(v));
@@ -103,8 +102,7 @@ public class VehiculoService {
 
     // Listar por tipo FORMATO DTO
     public List<VehiculoDTO> findAllByTipo(TipoVehiculo tipo){
-        String tipoString = tipo.toString();
-        List<Vehiculo> listaVehiculos = vehiculoRepository.findAllByEstado(tipoString);
+        List<Vehiculo> listaVehiculos = vehiculoRepository.findAllByTipo(tipo);
         List<VehiculoDTO> listaVehiculosDTO = new ArrayList<>();
         for (Vehiculo v : listaVehiculos) {
             listaVehiculosDTO.add(vehiculoMapper.toDTO(v));

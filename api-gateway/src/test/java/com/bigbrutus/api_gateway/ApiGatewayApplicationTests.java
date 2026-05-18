@@ -1,10 +1,10 @@
-package com.bigbrutus.cliente;
+package com.bigbrutus.api_gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ClienteApplicationTests {
+class ApiGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {
