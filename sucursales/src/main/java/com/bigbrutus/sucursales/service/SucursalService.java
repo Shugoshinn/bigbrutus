@@ -1,9 +1,11 @@
 package com.bigbrutus.sucursales.service;
 
 import com.bigbrutus.sucursales.model.Sucursal;
+import com.bigbrutus.sucursales.model.TipoSucursal;
 import com.bigbrutus.sucursales.repository.SucursalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,5 +31,22 @@ public class SucursalService {
         if (!sucursalRepository.existsById(id)) {
             throw new RuntimeException("Vehículo no encontrado con id: " + id);
         }
+    }
+
+    // ***OTROS**
+
+    // Listar Sucursales Activos o Inactivos
+    public List<Sucursal> findAllByActiva(Boolean activa){
+        return sucursalRepository.findAllByActiva(activa);
+    }
+
+    // Listar Sucursales por Comuna
+    public List<Sucursal> findAllByComuna(String comuna){
+        return sucursalRepository.findAllByComuna(comuna);
+    }
+
+    // Listar Sucursales según tipo [PARA_SERVIR,PARA_LLEVAR]
+    public List<Sucursal> findAllByTipo(TipoSucursal tipo){
+        return sucursalRepository.findAllByTipo(tipo);
     }
 }

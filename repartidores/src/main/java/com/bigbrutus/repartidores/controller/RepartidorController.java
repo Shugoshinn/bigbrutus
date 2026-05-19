@@ -49,4 +49,13 @@ public class RepartidorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @Valid @RequestBody Repartidor repartidor){
+        try {
+            return ResponseEntity.ok(repartidorService.update(id,repartidor));
+        } catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
