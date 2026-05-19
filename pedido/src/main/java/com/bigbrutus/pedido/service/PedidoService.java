@@ -1,5 +1,6 @@
 package com.bigbrutus.pedido.service;
 
+import com.bigbrutus.pedido.dto.PedidoDTO;
 import com.bigbrutus.pedido.mapper.PedidoMapper;
 import com.bigbrutus.pedido.model.Pedido;
 import com.bigbrutus.pedido.repository.PedidoRepository;
@@ -31,5 +32,11 @@ public class PedidoService {
 
     public void delete(Long id_pedido){
         pedidoRepository.deleteById(id_pedido);
+    }
+
+    public PedidoDTO findByIdDTO(Long id) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+        return pedidoMapper.toDTO(pedido);
     }
 }
