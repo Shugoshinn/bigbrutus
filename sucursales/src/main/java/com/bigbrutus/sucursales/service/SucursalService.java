@@ -30,4 +30,21 @@ public class SucursalService {
             throw new RuntimeException("Vehículo no encontrado con id: " + id);
         }
     }
+        // ***OTROS**
+
+    // Listar Sucursales Activos o Inactivos
+    public List<Sucursal> findAllByActiva(Boolean activa){
+        return sucursalRepository.findAllByActiva(activa);
+    }
+
+    // Listar Sucursales por Comuna
+    public List<Sucursal> findAllByComuna(String comuna){
+        return sucursalRepository.findAllByComuna(comuna);
+    }
+
+    // Listar Sucursales según tipo [PARA_SERVIR,PARA_LLEVAR]
+    public List<Sucursal> findAllByTipo(TipoSucursal tipo){
+        return sucursalRepository.findAllByTipo(tipo);
+    }
+    
 }
