@@ -8,41 +8,47 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
+
     @Autowired
     private ClienteService clienteService;
-
     @GetMapping
-    public ResponseEntity<?> listar(){
-        return ResponseEntity.ok(clienteService.findAll());
+    public ResponseEntity<List<ClienteDTO>> listar(){
+        return ResponseEntity.ok(clienteService.findDTOList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Long id_cliente){
-        ClienteDTO cliente = clienteService.findbyId(id_cliente);
-        if (cliente== null)
+    public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Long id){
+        ClienteDTO cliente = clienteService.findDTO(id);
+        if (cliente == null) {
             return ResponseEntity.notFound().build();
-        return  ResponseEntity.ok(cliente);
+        }
+        return ResponseEntity.ok(cliente);
     }
 
     @PostMapping
-    public ResponseEntity<?> registrar(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> registrar(@RequestBody Cliente cliente){
         Cliente clienteNuevo = clienteService.save(cliente);
         return new ResponseEntity<>(clienteNuevo, HttpStatus.CREATED);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrar(@PathVariable Long id_cliente){
-        clienteService.delete(id_cliente);
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> borrar(@PathVariable Long id){
+        clienteService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizar(@PathVariable Long id_cliente, @RequestBody Cliente cliente){
-        Cliente clienteActualizado = clienteService.update(id_cliente,cliente);
-        if(clienteActualizado == null) return ResponseEntity.notFound().build();
+    public ResponseEntity<Cliente> actualizar(@PathVariable Long id, @RequestBody Cliente cliente){
+        Cliente clienteActualizado = clienteService.update(id, cliente);
+        if(clienteActualizado == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(clienteActualizado);
     }
 }
