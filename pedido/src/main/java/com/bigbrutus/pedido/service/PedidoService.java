@@ -1,5 +1,6 @@
 package com.bigbrutus.pedido.service;
 
+import com.bigbrutus.pedido.mapper.PedidoMapper;
 import com.bigbrutus.pedido.model.Pedido;
 import com.bigbrutus.pedido.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private PedidoMapper pedidoMapper;
 
     public List<Pedido> findAll(){
         return pedidoRepository.findAll();
