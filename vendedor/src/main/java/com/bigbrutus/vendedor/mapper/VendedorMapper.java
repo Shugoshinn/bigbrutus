@@ -11,10 +11,14 @@ public class VendedorMapper {
     public VendedorDTO toDTO(Vendedor vendedor) {
         if (vendedor == null) return null;
         VendedorDTO dto = new VendedorDTO();
-        dto.setId(vendedor.getId());
+        dto.setIdVendedor(vendedor.getIdVendedor());
         dto.setNombreCompleto(vendedor.getNombre() + " " + vendedor.getApellido());
-        dto.setRut(vendedor.getRut());
-        dto.setActivo(vendedor.isActivo());
+        dto.setTelefono(vendedor.getTelefono());
+        dto.setEmail(vendedor.getEmail());
+        dto.setFechaContratacion(vendedor.getFechaContratacion());
+        dto.setSalario(vendedor.getSalario());
+        dto.setEstado(vendedor.getEstado());
+        dto.setIdSucursal(vendedor.getIdSucursal());
         return dto;
     }
 

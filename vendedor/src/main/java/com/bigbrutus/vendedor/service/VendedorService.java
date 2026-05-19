@@ -45,8 +45,11 @@ public class VendedorService {
 
         existente.setNombre(datos.getNombre());
         existente.setApellido(datos.getApellido());
-        existente.setRut(datos.getRut());
-        existente.setActivo(datos.isActivo());
+        existente.setTelefono(datos.getTelefono());
+        existente.setEmail(datos.getEmail());
+        existente.setSalario(datos.getSalario());
+        existente.setEstado(datos.getEstado());
+        existente.setIdSucursal(datos.getIdSucursal());
 
         return vendedorRepository.save(existente);
     }
