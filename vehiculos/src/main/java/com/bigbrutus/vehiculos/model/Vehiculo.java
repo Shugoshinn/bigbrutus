@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "vehiculo")
+@Table(name = "Vehiculos")
 public class Vehiculo {
 
     @Id
@@ -36,7 +36,7 @@ public class Vehiculo {
     @Size(max = 50)
     private String modelo;
 
-    @NotNull
+    @NotNull(message = "El año no puede estar vacío!")
     @Min(value = 1800, message = "El año debe ser válido! (Mayor a 1800)")
     @Max(value = 2100, message = "El año debe ser válido! (Menor a 2100)")
     private Integer anio;

@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/api-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/repartidores/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sucursales/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vehiculos/src/main/java" charset="UTF-8" />
   </component>
 </project>
