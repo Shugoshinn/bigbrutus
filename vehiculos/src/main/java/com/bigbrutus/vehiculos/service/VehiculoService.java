@@ -1,6 +1,8 @@
 package com.bigbrutus.vehiculos.service;
 
 import com.bigbrutus.vehiculos.dto.VehiculoDTO;
+import com.bigbrutus.vehiculos.exception.NotFoundException;
+import com.bigbrutus.vehiculos.exception.RequestException;
 import com.bigbrutus.vehiculos.mapper.VehiculoMapper;
 import com.bigbrutus.vehiculos.model.EstadoVehiculo;
 import com.bigbrutus.vehiculos.model.TipoVehiculo;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VehiculoService {
@@ -40,8 +41,7 @@ public class VehiculoService {
 
     // Buscar  por Id vehículo específico FORMATO DTO
     public VehiculoDTO findByID(Long id){
-         Vehiculo vehiculo = vehiculoRepository.findById(id).orElseThrow(()-> new RuntimeException("Vehículo no encontrado con id: "+ id));
-         
+         Vehiculo vehiculo = vehiculoRepository.findById(id).orElseThrow(()-> new NotFoundException("Vehículo no encontrado con id: "+ id));
          return vehiculoMapper.toDTO(vehiculo);
     }
 
@@ -53,7 +53,7 @@ public class VehiculoService {
     // Eliminar por Id un vehículo
     public void deleteById(Long id){
         if (!vehiculoRepository.existsById(id)){
-            throw new RuntimeException("Vehículo no encontrado con id: "+ id);
+            throw new NotFoundException("Vehículo no encontrado con id: "+ id);
         }
         vehiculoRepository.deleteById(id);
     }
@@ -70,15 +70,20 @@ public class VehiculoService {
                     vehiculo.setEstado(vehiculoActualizado.getEstado());
 
                     return vehiculoRepository.save(vehiculo);
-                }).orElseThrow(() -> new RuntimeException("Vehículo no encontrado con id: "+ id));
+                }).orElseThrow(() -> new NotFoundException("Vehículo no encontrado con id: "+ id));
     }
 
     // *** MÉTODOS PERSONALIZADOS ***
 
     // Buscar por patente
     public VehiculoDTO findByPatente(String patente){
-        Vehiculo vehiculo = vehiculoRepository.findByPatente(patente).orElseThrow(()-> new RuntimeException("Vehículo no encontrado con patente: "+ patente));
+        Vehiculo vehiculo = vehiculoRepository.findByPatente(patente).orElseThrow(()-> new NotFoundException("Vehículo no encontrado con patente: "+ patente));
         return vehiculoMapper.toDTO(vehiculo);
+    }
+
+    // Listar por Tipo
+    public List<Vehiculo> findAllByTipo(TipoVehiculo tipo){
+        return vehiculoRepository.findAllByTipo(tipo);
     }
 
     // Actualizar Solo Estado
@@ -87,7 +92,7 @@ public class VehiculoService {
                 .map(vehiculo ->{
                     vehiculo.setEstado(estado);
                     return vehiculoRepository.save(vehiculo);
-                }).orElseThrow(() -> new RuntimeException("Vehículo no encontrado con id: "+ id));
+                }).orElseThrow(() -> new NotFoundException("Vehículo no encontrado con id: "+ id));
     }
     // Listar por Estado FORMATO DTO
     public List<VehiculoDTO> findAllByEstado(EstadoVehiculo estado){
@@ -101,7 +106,7 @@ public class VehiculoService {
 
 
     // Listar por tipo FORMATO DTO
-    public List<VehiculoDTO> findAllByTipo(TipoVehiculo tipo){
+    public List<VehiculoDTO> findAllByTipoDTO(TipoVehiculo tipo){
         List<Vehiculo> listaVehiculos = vehiculoRepository.findAllByTipo(tipo);
         List<VehiculoDTO> listaVehiculosDTO = new ArrayList<>();
         for (Vehiculo v : listaVehiculos) {
@@ -109,4 +114,5 @@ public class VehiculoService {
         }
         return listaVehiculosDTO;
     }
+
 }

@@ -42,4 +42,6 @@ public class Repartidor {
     @NotNull(message = "Id de vehiculo no puede estar vacio")
     @Column(name = "id_vehiculo")
     private Long vehiculo;
+
+
 }
