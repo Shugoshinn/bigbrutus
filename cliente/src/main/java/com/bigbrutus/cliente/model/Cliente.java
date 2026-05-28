@@ -3,6 +3,7 @@ package com.bigbrutus.cliente.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,10 +39,11 @@ public class Cliente {
         @Column(unique = true)
         private String email;
 
+        @NotBlank(message = "La direccion no puede estar vacia")
         @Column(nullable = false)
         private String direccion;
 
-        
+        @NotNull(message = "Este campo no puede estar vacío")
         private LocalDate fechaRegistro;
 
         @Column(nullable = false)

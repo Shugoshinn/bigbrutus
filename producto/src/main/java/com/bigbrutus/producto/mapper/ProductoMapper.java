@@ -7,23 +7,21 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ProuctoMapper {
+public class ProductoMapper {
 
     public ProductoDTO toDTO(Producto producto){
         if (producto == null) return null;
+
         ProductoDTO productoDTO = new ProductoDTO();
+
         productoDTO.setId_producto(producto.getId_producto());
-        productoDTO.setNombre(productoDTO.getNombre());
-        productoDTO.setDescripcion(productoDTO.getDescripcion());
-        productoDTO.setCategoria(productoDTO.getCategoria());
+        productoDTO.setNombre(producto.getNombre());
+        productoDTO.setDescripcion(producto.getDescripcion());
+        productoDTO.setCategoria(String.valueOf(producto.getCategoria()));
         productoDTO.setPrecio(producto.getPrecio());
-        productoDTO.setStock(productoDTO.getStock());
-        productoDTO.setDisponible(productoDTO.isDisponible());
+        productoDTO.setStock(producto.getStock());
+        productoDTO.setDisponible(producto.isDisponible());
 
         return productoDTO;
-    }
-
-    public List<ProductoDTO> toDTOList(List<Producto> listado){
-        return listado.stream().map(this::toDTO).toList();
     }
 }

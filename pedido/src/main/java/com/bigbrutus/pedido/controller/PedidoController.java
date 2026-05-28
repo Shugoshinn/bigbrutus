@@ -5,7 +5,10 @@ import com.bigbrutus.pedido.dto.PedidoDTO;
 import com.bigbrutus.pedido.mapper.PedidoMapper;
 import com.bigbrutus.pedido.model.Pedido;
 import com.bigbrutus.pedido.service.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,14 +24,32 @@ public class PedidoController {
     private PedidoMapper pedidoMapper;
 
     @GetMapping
-    public List<?> getAll(){
-        return pedidoMapper.toDTOList(pedidoService.findAll());
+    public ResponseEntity<List<?>> getAll() {
+        List<?> pedidos = pedidoMapper.toDTOList(pedidoService.findAll());
+        return ResponseEntity.ok(pedidos);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        Pedido pedido = pedidoService.findById(id);
+        if (pedido == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
     }
 
     @PostMapping
-    public PedidoDTO create(@RequestBody PedidoDTO pedidoDTO) {
+    public ResponseEntity<?> registrar(@Valid @RequestBody PedidoDTO pedidoDTO) {
         Pedido pedido = pedidoMapper.toEntity(pedidoDTO);
         Pedido pedidoGuardado = pedidoService.save(pedido);
-        return pedidoMapper.toDTO(pedidoGuardado);
+
+        return new ResponseEntity<PedidoDTO>(pedidoMapper.toDTO(pedidoGuardado), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        pedidoService.delete(id);
     }
 }
+
