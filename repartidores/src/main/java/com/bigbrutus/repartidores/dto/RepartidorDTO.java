@@ -16,6 +16,7 @@ public class RepartidorDTO {
     private EstadoRepartidor estado;
 
     private String vehiculo;
+    private String patente;
 
     private String sucursal;
 

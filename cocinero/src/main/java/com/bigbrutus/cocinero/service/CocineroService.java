@@ -2,6 +2,7 @@ package com.bigbrutus.cocinero.service;
 
 import com.bigbrutus.cocinero.dto.CocineroDTO;
 import com.bigbrutus.cocinero.exception.CocineroNotFoundException;
+import com.bigbrutus.cocinero.exception.EspecialidadNotValidException;
 import com.bigbrutus.cocinero.mapper.CocineroMapper;
 import com.bigbrutus.cocinero.model.Cocinero;
 import com.bigbrutus.cocinero.model.EstadoCocinero;
@@ -46,8 +47,13 @@ public class CocineroService {
 
     // GUARDAR
     public Cocinero save(Cocinero cocinero) {
+        if ( cocinero.getEspecialidad().equalsIgnoreCase("Pizzas") ||  cocinero.getEspecialidad().equalsIgnoreCase("Empanadas") ){
+            return cocineroRepository.save(cocinero);
+        }
+        else{
+            throw new EspecialidadNotValidException("Especialidad no valida");
+        }
 
-        return cocineroRepository.save(cocinero);
     }
 
     // ELIMINAR
