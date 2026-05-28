@@ -16,41 +16,48 @@ public class Vendedor {
     @Column(name = "id_vendedor")
     private Long idVendedor;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(min = 2, message = "El nombre del vendedor no puedes ser menor a los 2 caracteres")
+    @Size(max = 50, message= "El nombre del vendedor no puede superar los 50 caracteres")
     private String nombre;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "El apellido no puede estar vacío")
+    @Size(min = 2, message = "El apellido del vendedor no puedes ser menor a los 2 caracteres")
+    @Size(max = 50, message= "El apellido del vendedor no puede superar los 50 caracteres")
     private String apellido;
 
-    @Size(max = 15)
+    @Size(max = 15, message = "El teléfono no puede superar los 15 caracteres")
     private String telefono;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "El email no puede estar vacío")
+    @Email(message = "Correo electronico no válido")
     @Size(max = 100)
     private String email;
 
+    @NotNull(message = "La fecha de contratación es obligatoria")
     @Column(name = "fecha_contratacion")
     private LocalDate fechaContratacion;
 
-    @NotNull
+    @NotNull(message = "Error! debe existir un salario")
+    @PositiveOrZero(message = "El salario debe ser positivo")
     private BigDecimal salario;
 
-    @NotBlank
-    @Size(max = 20)
-    private String estado;
+    @NotBlank(message = "El estado no puede estar vacío")
+    @Size(max = 20, message = "El estado no puede superar los 20 caracteres")
+    @Column(nullable = false)
+    private EstadoVendedor estado;
 
-    @NotNull
+    @NotNull(message = "La sucursal es obligatoria")
     @Column(name = "id_sucursal")
     private Long idSucursal;
+
 
     @PrePersist
     protected void onCreate() {
         this.fechaContratacion = LocalDate.now();
         if (this.estado == null) {
-            this.estado = "ACTIVO";
+            this.estado = EstadoVendedor.ACTIVO;
         }
     }
+
 }

@@ -38,10 +38,11 @@ public class Cliente {
         @Column(unique = true)
         private String email;
 
+        @NotBlank(message = "La direccion no puede estar vacia")
         @Column(nullable = false)
         private String direccion;
 
-        
+        @NotBlank(message = "La fecha de registro es obligatoria")
         private LocalDate fechaRegistro;
 
         @Column(nullable = false)

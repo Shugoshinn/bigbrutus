@@ -8,5 +8,13 @@ import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    List<Cliente> findAllById_cliente(Long id);
+
+    // BUSCAR POR EMAIL
+    Cliente findByEmail(String email);
+
+    // BUSCAR POR NOMBRE
+    List<Cliente> findByNombre(String nombre);
+
+    // BUSCAR CLIENTES ACTIVOS
+    List<Cliente> findByActivo(boolean activo);
 }
