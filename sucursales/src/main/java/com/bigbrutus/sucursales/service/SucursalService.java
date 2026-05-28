@@ -1,7 +1,12 @@
 package com.bigbrutus.sucursales.service;
 
+import com.bigbrutus.sucursales.dto.SucursalDTO;
+import com.bigbrutus.sucursales.mapper.SucursalMapper;
 import com.bigbrutus.sucursales.model.Sucursal;
+import com.bigbrutus.sucursales.model.TipoSucursal;
+import com.bigbrutus.sucursales.exception.NotFoundException;
 import com.bigbrutus.sucursales.repository.SucursalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,14 +14,19 @@ import java.util.List;
 @Service
 public class SucursalService {
 
+    @Autowired
     private SucursalRepository sucursalRepository;
+
+    @Autowired
+    private SucursalMapper sucursalMapper;
 
     public List<Sucursal> findAll() {
         return sucursalRepository.findAll();
     }
 
-    public Sucursal findByID(Long id) {
-        return sucursalRepository.findById(id).orElseThrow(() -> new RuntimeException("Sucursal no encontrada con id: " + id));
+    public SucursalDTO findByID(Long id) {
+        Sucursal sucursal = sucursalRepository.findById(id).orElseThrow(() -> new NotFoundException("Sucursal no encontrada con id: " + id));
+        return sucursalMapper.toDTO(sucursal);
     }
 
     // Registrar un vehículo
@@ -27,10 +37,11 @@ public class SucursalService {
     // Eliminar por Id un vehículo
     public void deleteById(Long id) {
         if (!sucursalRepository.existsById(id)) {
-            throw new RuntimeException("Vehículo no encontrado con id: " + id);
+            throw new NotFoundException("Sucursal no encontrada con id: " + id);
         }
     }
-        // ***OTROS**
+
+    // ***OTROS**
 
     // Listar Sucursales Activos o Inactivos
     public List<Sucursal> findAllByActiva(Boolean activa){
@@ -46,5 +57,4 @@ public class SucursalService {
     public List<Sucursal> findAllByTipo(TipoSucursal tipo){
         return sucursalRepository.findAllByTipo(tipo);
     }
-    
 }

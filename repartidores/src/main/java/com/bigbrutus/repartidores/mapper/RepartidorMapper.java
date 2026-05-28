@@ -22,6 +22,17 @@ public class RepartidorMapper {
         dto.setTelefono(r.getTelefono());
         dto.setEstado(r.getEstado());
 
+        // Validar que no esté vacío
+        if (r.getVehiculo() != null) {
+            //Buscar el vehículo usando el ID que viene del repartidor
+            var vehiculo = vehiculoFeign.buscarPorID(r.getVehiculo());
+
+            if (vehiculo != null) {
+                // 3. Asignar la patente
+                dto.setVehiculo(vehiculo.getPatente());
+            }
+        }
+
         return dto;
 
     }

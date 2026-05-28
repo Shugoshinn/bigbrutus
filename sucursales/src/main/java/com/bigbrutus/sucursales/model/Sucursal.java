@@ -41,4 +41,8 @@ public class Sucursal {
     private Time horario_cierre;
 
     private Boolean activa;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Por favor, ingresar un tipo de sucursal! [PARA_SERVIR,PARA_LLEVAR]")
+    private TipoSucursal tipo;
 }

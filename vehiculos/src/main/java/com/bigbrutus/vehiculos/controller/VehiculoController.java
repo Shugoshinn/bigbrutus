@@ -35,12 +35,8 @@ public class VehiculoController {
     // Buscar vehículo específico por Id FORMATO DTO
     @GetMapping("/{id}")
     public ResponseEntity<VehiculoDTO> buscarPorID(@PathVariable Long id){
-        try {
-            VehiculoDTO vehiculoDTO = vehiculoService.findByID(id);
-            return ResponseEntity.ok(vehiculoDTO);
-        } catch (RuntimeException e){
-            return ResponseEntity.notFound().build();
-        }
+        VehiculoDTO vehiculoDTO = vehiculoService.findByID(id);
+        return ResponseEntity.ok(vehiculoDTO);
     }
 
     // Registrar un vehículo
@@ -96,7 +92,7 @@ public class VehiculoController {
     // Listar por tipo
     @GetMapping("/listar-por-tipo/{tipo}")
     public ResponseEntity<?> listarPorTipoDTO(@PathVariable TipoVehiculo tipo) {
-        return ResponseEntity.ok(vehiculoService.findAllByTipo(tipo));
+        return ResponseEntity.ok(vehiculoService.findAllByTipoDTO(tipo));
     }
 
     // Actualizar Solo Estado
