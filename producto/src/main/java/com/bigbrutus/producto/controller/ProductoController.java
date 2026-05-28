@@ -31,7 +31,7 @@ public class ProductoController {
         }
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<?> registrar(@Valid @RequestBody Producto producto){
         ProductoDTO productoNuevo = productoService.save(producto);
         return new ResponseEntity<>(productoNuevo, HttpStatus.CREATED);

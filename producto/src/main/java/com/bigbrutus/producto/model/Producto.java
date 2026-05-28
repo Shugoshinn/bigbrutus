@@ -27,6 +27,7 @@ public class Producto {
     private String descripcion;
 
     @NotBlank(message = "La categoría es obligatoria")
+    @Enumerated(EnumType.STRING)
     private CategoriaProducto categoria;
 
     @NotNull(message = "El precio no puede ser nulo")
