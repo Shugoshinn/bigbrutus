@@ -152,7 +152,12 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+                <configuration>
+                    <source>24</source>
+                    <target>24</target>
+                    <compilerArgs></compilerArgs>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 

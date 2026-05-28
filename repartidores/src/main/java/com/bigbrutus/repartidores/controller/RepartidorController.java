@@ -1,8 +1,11 @@
 package com.bigbrutus.repartidores.controller;
 
+import com.bigbrutus.repartidores.model.EstadoRepartidor;
 import com.bigbrutus.repartidores.model.Repartidor;
+import com.bigbrutus.repartidores.model.TipoVehiculo;
 import com.bigbrutus.repartidores.service.RepartidorService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/repartidores")
 public class RepartidorController {
 
+    @Autowired
     private RepartidorService repartidorService;
 
     // Lista de todos
@@ -48,5 +52,32 @@ public class RepartidorController {
         }catch (RuntimeException e){
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @Valid @RequestBody Repartidor repartidor){
+        try {
+            return ResponseEntity.ok(repartidorService.update(id,repartidor));
+        } catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Listar todo con vehiculos incluidos
+    @GetMapping("/lista-detallada")
+    public ResponseEntity<?> listaDetallada(){
+        return ResponseEntity.ok(repartidorService.listaDetallada());
+    }
+
+    // Buscar repartidores por Tipo de Vehiculo
+    @GetMapping("/tipo-vehiculo/{tipo}")
+    public ResponseEntity<?> buscarPorTipoVehiculo(@PathVariable TipoVehiculo tipo){
+        return ResponseEntity.ok(repartidorService.listRepPorTipoVehiculo(tipo));
+    }
+
+    // Listar repartidores por Estado
+    @GetMapping("/listar-por-estado/{estado}")
+    public ResponseEntity<?> listarPorEstado(@PathVariable EstadoRepartidor estado){
+        return ResponseEntity.ok(repartidorService.findAllByEstado(estado));
     }
 }
