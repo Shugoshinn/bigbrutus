@@ -34,7 +34,7 @@ public class Vendedor {
     @Size(max = 100)
     private String email;
 
-    @NotNull(message = "La fecha de contratación es obligatoria")
+
     @Column(name = "fecha_contratacion")
     private LocalDate fechaContratacion;
 
@@ -42,8 +42,8 @@ public class Vendedor {
     @PositiveOrZero(message = "El salario debe ser positivo")
     private BigDecimal salario;
 
-    @NotBlank(message = "El estado no puede estar vacío")
-    @Size(max = 20, message = "El estado no puede superar los 20 caracteres")
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoVendedor estado;
 

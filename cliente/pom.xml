@@ -9,20 +9,20 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.6</version>
+		<version>3.4.4</version>
 		<relativePath/>
 	</parent>
 
 	<groupId>com.bigbrutus</groupId>
-	<artifactId>cocinero</artifactId>
+	<artifactId>cliente</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>cocinero</name>
-	<description>Microservicio Cocinero</description>
+	<name>cliente</name>
+	<description>Microservicio cliente</description>
 
 	<properties>
 		<java.version>21</java.version>
-		<spring-cloud.version>2025.0.0</spring-cloud.version>
+		<spring-cloud.version>2024.0.1</spring-cloud.version>
 	</properties>
 
 	<dependencies>

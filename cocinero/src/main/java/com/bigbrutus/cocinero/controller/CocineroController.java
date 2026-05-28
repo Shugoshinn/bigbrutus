@@ -2,6 +2,7 @@ package com.bigbrutus.cocinero.controller;
 
 import com.bigbrutus.cocinero.dto.CocineroDTO;
 import com.bigbrutus.cocinero.model.Cocinero;
+import com.bigbrutus.cocinero.model.EstadoCocinero;
 import com.bigbrutus.cocinero.service.CocineroService;
 
 import jakarta.validation.Valid;
@@ -102,7 +103,7 @@ public class CocineroController {
     public ResponseEntity<Cocinero> actualizarEstado(@PathVariable Long id,
                                                      @PathVariable String estado){
 
-        Cocinero cocineroActualizado = cocineroService.updateEstado(id, estado);
+        Cocinero cocineroActualizado = cocineroService.updateEstado(id, EstadoCocinero.valueOf(estado));
 
         if(cocineroActualizado == null){
             return ResponseEntity.notFound().build();

@@ -18,7 +18,7 @@ public class CocineroMapper {
 
         dto.setIdCocinero(cocinero.getIdCocinero());
         dto.setNombreCompleto(cocinero.getNombre() + " " + cocinero.getApellido());
-        dto.setSpecialty(cocinero.getSpecialty());
+        dto.setEspecialidad(cocinero.getEspecialidad());
         dto.setTelefono(cocinero.getTelefono());
         dto.setEstado(cocinero.getEstado());
         dto.setFechaContratacion(cocinero.getFechaContratacion());

@@ -1,5 +1,6 @@
 package com.bigbrutus.cocinero.dto;
 
+import com.bigbrutus.cocinero.model.EstadoCocinero;
 import lombok.Data;
 import java.time.LocalDate;
 
@@ -7,9 +8,9 @@ import java.time.LocalDate;
 public class CocineroDTO {
     private Long idCocinero;
     private String nombreCompleto;
-    private String specialty;
+    private String especialidad;
     private String telefono;
-    private String estado;
+    private EstadoCocinero estado;
     private LocalDate fechaContratacion;
     private Long idSucursal;
 }

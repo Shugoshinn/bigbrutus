@@ -4,12 +4,14 @@ import com.bigbrutus.cocinero.dto.CocineroDTO;
 import com.bigbrutus.cocinero.exception.CocineroNotFoundException;
 import com.bigbrutus.cocinero.mapper.CocineroMapper;
 import com.bigbrutus.cocinero.model.Cocinero;
+import com.bigbrutus.cocinero.model.EstadoCocinero;
 import com.bigbrutus.cocinero.repository.CocineroRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import com.bigbrutus.cocinero.model.EstadoCocinero;
 
 @Service
 public class CocineroService {
@@ -68,7 +70,7 @@ public class CocineroService {
 
         existente.setNombre(datos.getNombre());
         existente.setApellido(datos.getApellido());
-        existente.setSpecialty(datos.getSpecialty());
+        existente.setEspecialidad(datos.getEspecialidad());
         existente.setTelefono(datos.getTelefono());
         existente.setEstado(datos.getEstado());
         existente.setIdSucursal(datos.getIdSucursal());
@@ -84,17 +86,18 @@ public class CocineroService {
     public List<CocineroDTO> findBySpecialty(String specialty){
 
         return cocineroMapper.toDTOList(
-                cocineroRepository.findBySpecialty(specialty)
+                cocineroRepository.findByEspecialidad(specialty)
         );
     }
 
     // BUSCAR POR ESTADO
     public List<CocineroDTO> findByEstado(String estado){
-
         return cocineroMapper.toDTOList(
-                cocineroRepository.findByEstado(estado)
+                cocineroRepository.findByEstado(EstadoCocinero.valueOf(estado))
         );
     }
+
+
 
     // BUSCAR POR SUCURSAL
     public List<CocineroDTO> findBySucursal(Long idSucursal){
@@ -105,7 +108,7 @@ public class CocineroService {
     }
 
     // ACTUALIZAR SOLO ESTADO
-    public Cocinero updateEstado(Long id, String estado){
+    public Cocinero updateEstado(Long id, EstadoCocinero estado){
 
         Cocinero cocinero = findById(id);
 
