@@ -17,45 +17,47 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping
-    public ResponseEntity<?> listar(){
+    public ResponseEntity<?> listarTodoDTO(){
         return ResponseEntity.ok(productoService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Long id_producto){
-        Producto producto = productoService.findById(id_producto);
-        if (producto == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(producto);
+    @GetMapping("/{id_producto}")
+    public ResponseEntity<?> buscarPorID(@PathVariable Long id){
+        try {
+            ProductoDTO productoDTO = productoService.findByID(id);
+            return ResponseEntity.ok(productoDTO);
+        } catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping
     public ResponseEntity<?> registrar(@Valid @RequestBody Producto producto){
-        Producto productoNuevo = productoService.save(producto);
+        ProductoDTO productoNuevo = productoService.save(producto);
         return new ResponseEntity<>(productoNuevo, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id_producto}")
     public ResponseEntity<?> actualizar(@PathVariable Long id_producto, @Valid @RequestBody Producto producto){
-        Producto productoActualizado = productoService.update(id_producto, producto);
-        if (productoActualizado == null) return ResponseEntity.notFound().build();
+        ProductoDTO productoActualizado = productoService.update(id_producto, producto);
         return ResponseEntity.ok(productoActualizado);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrar(@PathVariable Long id){
-        productoService.delete(id);
+    @DeleteMapping("/{id_producto}")
+    public ResponseEntity<?> borrar(@PathVariable Long id_producto){
+        productoService.deleteById(id_producto);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{listado/{id}}")
-    public ResponseEntity<?> buscarPorIdDTO(@PathVariable Long id){
-        ProductoDTO producto = productoService.findDTO(id);
+    @GetMapping("/listado/{id_producto}")
+    public ResponseEntity<?> buscarPorIdDTO(@PathVariable Long id_producto){
+        ProductoDTO producto = productoService.findByID(id_producto);
         if (producto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(producto);
     }
 
     @GetMapping("/listado")
     public ResponseEntity<?> listarDTO(){
-        return ResponseEntity.ok(productoService.findDTOList());
+        return ResponseEntity.ok(productoService.findAllDTO());
     }
 }
