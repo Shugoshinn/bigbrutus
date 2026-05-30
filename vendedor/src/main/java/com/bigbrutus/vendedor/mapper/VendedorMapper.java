@@ -1,6 +1,6 @@
 package com.bigbrutus.vendedor.mapper;
 
-import com.bigbrutus.vendedor.exception.dto.VendedorDTO;
+import com.bigbrutus.vendedor.dto.VendedorDTO;
 import com.bigbrutus.vendedor.model.Vendedor;
 
 import org.springframework.stereotype.Component;

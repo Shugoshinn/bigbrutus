@@ -66,7 +66,6 @@ public class SucursalController {
     @GetMapping("/tipo/{tipo}")
     // Listar Sucursales según tipo [PARA_SERVIR,PARA_LLEVAR]
     public List<Sucursal> findAllByTipo(@PathVariable TipoSucursal tipo){
-
         return sucursalService.findAllByTipo(tipo);
     }
 }

@@ -1,6 +1,6 @@
 package com.bigbrutus.vendedor.controller;
 
-import com.bigbrutus.vendedor.exception.dto.VendedorDTO;
+import com.bigbrutus.vendedor.dto.VendedorDTO;
 import com.bigbrutus.vendedor.model.EstadoVendedor;
 import com.bigbrutus.vendedor.model.Vendedor;
 import com.bigbrutus.vendedor.service.VendedorService;

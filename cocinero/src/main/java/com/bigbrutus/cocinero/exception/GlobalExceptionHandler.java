@@ -32,22 +32,45 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleCocineroNotFound(CocineroNotFoundException ex) {
         ErrorResponse response = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
-                "Recurso no encontrado",
+                "Cocinero no encontrado",
                 ex.getMessage(),
                 LocalDateTime.now()
         );
-
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+    // Especialidad inválida (solo Pizzas o Empanadas)
     @ExceptionHandler(EspecialidadNotValidException.class)
-    public ResponseEntity<ErrorResponse> especilaidadCocinero(EspecialidadNotValidException ex) {
+    public ResponseEntity<ErrorResponse> handleEspecialidadInvalida(EspecialidadNotValidException ex) {
         ErrorResponse response = new ErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
-                "Error en especialidad",
-                ex.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Especialidad no válida",
+                "La especialidad debe ser: Pizzas o Empanadas",
                 LocalDateTime.now()
         );
-
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleEstadoInvalido(IllegalArgumentException ex) {
+        ErrorResponse response = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                "Estado inválido",
+                "El estado debe ser: ACTIVO, INACTIVO, VACACIONES o LICENCIA",
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+    // Error inesperado
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+        ErrorResponse response = new ErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Error interno del servidor",
+                "Ocurrió un error inesperado, contacte al administrador",
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+
 }

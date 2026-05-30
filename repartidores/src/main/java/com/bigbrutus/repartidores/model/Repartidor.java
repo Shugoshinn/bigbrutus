@@ -23,7 +23,6 @@ public class Repartidor {
     private Long idRepartidor;
 
     @NotBlank(message = "El nombre no puede estar vacío!")
-    @Size(min = 3, max = 50)
     private String nombre;
 
     @NotBlank(message = "El apellido no puede estar vacía!")

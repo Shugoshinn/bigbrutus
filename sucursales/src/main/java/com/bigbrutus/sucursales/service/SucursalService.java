@@ -1,6 +1,7 @@
 package com.bigbrutus.sucursales.service;
 
 import com.bigbrutus.sucursales.dto.SucursalDTO;
+import com.bigbrutus.sucursales.exception.BadNameException;
 import com.bigbrutus.sucursales.mapper.SucursalMapper;
 import com.bigbrutus.sucursales.model.Sucursal;
 import com.bigbrutus.sucursales.model.TipoSucursal;
@@ -31,6 +32,9 @@ public class SucursalService {
 
     // Registrar un vehículo
     public Sucursal save(Sucursal sucursalNuevo) {
+        if (sucursalNuevo.getNombre().length() < 3 || sucursalNuevo.getNombre().length() > 50){
+            throw new BadNameException("El nombre ingresado no es válido");
+        }
         return sucursalRepository.save(sucursalNuevo);
     }
 

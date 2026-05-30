@@ -1,6 +1,6 @@
 package com.bigbrutus.vendedor.service;
 
-import com.bigbrutus.vendedor.exception.dto.VendedorDTO;
+import com.bigbrutus.vendedor.dto.VendedorDTO;
 import com.bigbrutus.vendedor.exception.VendedorNotFoundException;
 import com.bigbrutus.vendedor.mapper.VendedorMapper;
 import com.bigbrutus.vendedor.model.Vendedor;

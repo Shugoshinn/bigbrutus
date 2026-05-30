@@ -3,6 +3,7 @@ package com.bigbrutus.repartidores.service;
 import com.bigbrutus.repartidores.clients.VehiculoFeign;
 import com.bigbrutus.repartidores.dto.RepartidorDTO;
 import com.bigbrutus.repartidores.dto.VehiculoDTO;
+import com.bigbrutus.repartidores.exception.BadNameException;
 import com.bigbrutus.repartidores.exception.NotFoundException;
 import com.bigbrutus.repartidores.mapper.RepartidorMapper;
 import com.bigbrutus.repartidores.model.EstadoRepartidor;
@@ -38,6 +39,9 @@ public class RepartidorService {
 
     // Registrar
     public Repartidor save(Repartidor repartidorNuevo) {
+        if (repartidorNuevo.getNombre().length() < 3 || repartidorNuevo.getNombre().length() > 50){
+            throw new BadNameException("El nombre ingresado no es válido");
+        }
         return repartidorRepository.save(repartidorNuevo);
     }
 
