@@ -1,4 +1,4 @@
-package com.bigbrutus.vendedor.exception.dto;
+package com.bigbrutus.vendedor.dto;
 
 import lombok.Data;
 import java.math.BigDecimal;
