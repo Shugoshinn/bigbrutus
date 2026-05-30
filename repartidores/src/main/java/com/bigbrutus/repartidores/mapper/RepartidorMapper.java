@@ -30,6 +30,7 @@ public class RepartidorMapper {
             if (vehiculo != null) {
                 // 3. Asignar la patente
                 dto.setVehiculo(vehiculo.getPatente());
+                dto.setPatente(vehiculo.getPatente());
             }
         }
 

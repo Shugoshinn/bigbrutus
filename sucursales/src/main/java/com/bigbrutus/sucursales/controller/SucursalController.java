@@ -68,5 +68,4 @@ public class SucursalController {
     public List<Sucursal> findAllByTipo(@PathVariable TipoSucursal tipo){
         return sucursalService.findAllByTipo(tipo);
     }
-
 }
