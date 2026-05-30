@@ -69,26 +69,4 @@ public class SucursalController {
 
         return sucursalService.findAllByTipo(tipo);
     }
-       
-    // ***OTROS**
-
-    // Listar Sucursales Activos o Inactivos
-
-    @GetMapping("/activo/{activa}")
-    public List<Sucursal> findAllByActiva(@PathVariable Boolean activa){
-        return sucursalService.findAllByActiva(activa);
-    }
-
-    // Listar Sucursales por Comuna
-    @GetMapping("/comuna/{comuna}")
-    public List<Sucursal> findAllByComuna(String comuna){
-        return sucursalService.findAllByComuna(comuna);
-    }
-
-    @GetMapping("/tipo/{tipo}")
-    // Listar Sucursales según tipo [PARA_SERVIR,PARA_LLEVAR]
-    public List<Sucursal> findAllByTipo(TipoSucursal tipo){
-        return sucursalService.findAllByTipo(tipo);
-    }
-
 }

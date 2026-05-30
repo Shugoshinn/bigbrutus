@@ -1,24 +1,27 @@
 package com.bigbrutus.pedido.dto;
 
 import com.bigbrutus.pedido.model.EstadoPedido;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.validation.constraints.NotBlank;
+import com.bigbrutus.pedido.model.MetodoPago;
+import com.bigbrutus.pedido.model.TipoPedido;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-@JsonPropertyOrder({"id","entrega","direccion","total","pago"})
 public class PedidoDTO {
 
     private Long id_pedido;
+    private LocalDate fecha_pedido;
     private String direccion_entrega;
     private EstadoPedido estado;
-    private Long total;
-    private String metodo_pago;
+    private TipoPedido tipo_pedido;
+    private BigDecimal total;
+    private MetodoPago metodo_pago;
 
-    private Long id_cliente;
-    private Long id_vendedor;
-    private Long id_repartidor;
-    private Long id_sucursal;
+    private String nombre_cliente;
+    private String nombre_vendedor;
+    private String nombre_repartidor;
+    private String nombre_sucursal;
 }
+
