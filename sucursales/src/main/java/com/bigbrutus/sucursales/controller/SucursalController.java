@@ -59,13 +59,13 @@ public class SucursalController {
 
     // Listar Sucursales por Comuna
     @GetMapping("/comuna/{comuna}")
-    public List<Sucursal> findAllByComuna(String comuna){
+    public List<Sucursal> findAllByComuna(@PathVariable String comuna){
         return sucursalService.findAllByComuna(comuna);
     }
 
     @GetMapping("/tipo/{tipo}")
     // Listar Sucursales según tipo [PARA_SERVIR,PARA_LLEVAR]
-    public List<Sucursal> findAllByTipo(TipoSucursal tipo){
+    public List<Sucursal> findAllByTipo(@PathVariable TipoSucursal tipo){
         return sucursalService.findAllByTipo(tipo);
     }
 

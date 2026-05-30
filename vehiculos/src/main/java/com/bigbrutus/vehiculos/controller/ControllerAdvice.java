@@ -1,6 +1,7 @@
 package com.bigbrutus.vehiculos.controller;
 
 import com.bigbrutus.vehiculos.dto.ErrorDTO;
+import com.bigbrutus.vehiculos.exception.AnioNoValidoException;
 import com.bigbrutus.vehiculos.exception.NotFoundException;
 import com.bigbrutus.vehiculos.exception.RequestException;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,13 @@ public class ControllerAdvice {
         ErrorDTO error = ErrorDTO.builder().message(ex.getMessage()).build();
         return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
     }
+
+    // Año ingresado no valido
+    @ExceptionHandler(AnioNoValidoException.class)
+    public ResponseEntity<ErrorDTO> anioNoValidoExceptionHandler(AnioNoValidoException ex){
+        ErrorDTO error = ErrorDTO.builder().message(ex.getMessage()).build();
+        return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+    }
+
 
 }

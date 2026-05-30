@@ -1,6 +1,7 @@
 package com.bigbrutus.vehiculos.service;
 
 import com.bigbrutus.vehiculos.dto.VehiculoDTO;
+import com.bigbrutus.vehiculos.exception.AnioNoValidoException;
 import com.bigbrutus.vehiculos.exception.NotFoundException;
 import com.bigbrutus.vehiculos.exception.RequestException;
 import com.bigbrutus.vehiculos.mapper.VehiculoMapper;
@@ -11,6 +12,8 @@ import com.bigbrutus.vehiculos.repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +50,9 @@ public class VehiculoService {
 
     // Registrar un vehículo
     public Vehiculo save(Vehiculo vehiculoNuevo){
+        if (vehiculoNuevo.getAnio() < 1800 || vehiculoNuevo.getAnio() > Year.now().getValue()){
+            throw new AnioNoValidoException("El año ingresado no es válido");
+        }
         return vehiculoRepository.save(vehiculoNuevo);
     }
 

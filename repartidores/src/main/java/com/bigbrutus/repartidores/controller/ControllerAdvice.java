@@ -1,6 +1,7 @@
 package com.bigbrutus.repartidores.controller;
 
 import com.bigbrutus.repartidores.dto.ErrorDTO;
+import com.bigbrutus.repartidores.exception.BadNameException;
 import com.bigbrutus.repartidores.exception.NotFoundException;
 import com.bigbrutus.repartidores.exception.RequestException;
 import org.springframework.http.HttpStatus;
@@ -25,4 +26,10 @@ public class ControllerAdvice {
         return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
     }
 
+    // Nombre mal ingresado
+    @ExceptionHandler(BadNameException.class)
+    public ResponseEntity<ErrorDTO> badNameExceptionHandler(BadNameException ex){
+        ErrorDTO error = ErrorDTO.builder().message(ex.getMessage()).build();
+        return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+    }
 }

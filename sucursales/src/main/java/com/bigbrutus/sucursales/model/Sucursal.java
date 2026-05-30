@@ -22,7 +22,6 @@ public class Sucursal {
     private Long idSucursal;
 
     @NotBlank(message = "El nombre no puede estar vacío!")
-    @Size(min = 3, max = 50)
     private String nombre;
 
     @NotBlank(message = "La direccion no puede estar vacía!")
