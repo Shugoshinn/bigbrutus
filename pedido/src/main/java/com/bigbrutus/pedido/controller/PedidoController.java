@@ -10,13 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/pedidos")
+@RequestMapping("/api/v1/pedidos")
 public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
 
-    @GetMapping
+    @GetMapping("/listar-todo")
     public ResponseEntity<?> listarTodo(){
         return ResponseEntity.ok(pedidoService.findAll());
     }

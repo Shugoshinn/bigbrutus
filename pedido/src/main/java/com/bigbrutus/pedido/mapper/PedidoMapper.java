@@ -41,7 +41,7 @@ public class PedidoMapper {
             var cliente = clienteFeign.buscarPorID(p.getCliente());
 
             if (cliente != null){
-                dto.setCliente(Long.valueOf(cliente.getNombreCompleto()));
+                dto.setNombre_cliente(cliente.getNombreCompleto());
             }
         }
 
@@ -51,7 +51,7 @@ public class PedidoMapper {
             var sucursal = sucursalFeign.buscarPorID(p.getSucursal());
 
             if (sucursal != null){
-                dto.setSucursal(p.getSucursal());
+                dto.setNombre_sucursal(sucursal.getNombre());
             }
         }
 
@@ -61,7 +61,7 @@ public class PedidoMapper {
             var repartidor = repartidorFeign.buscarPorID(p.getRepartidor());
 
             if (repartidor != null){
-                dto.setRepartidor(p.getRepartidor());
+                dto.setNombre_repartidor(repartidor.getNombreCompleto());
             }
         }
 

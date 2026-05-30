@@ -16,15 +16,15 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
-    @GetMapping
+    @GetMapping("/listar-todo")
     public ResponseEntity<?> listarTodoDTO(){
         return ResponseEntity.ok(productoService.findAll());
     }
 
     @GetMapping("/{id_producto}")
-    public ResponseEntity<?> buscarPorID(@PathVariable Long id){
+    public ResponseEntity<?> buscarPorID(@PathVariable Long id_producto){
         try {
-            ProductoDTO productoDTO = productoService.findByID(id);
+            ProductoDTO productoDTO = productoService.findByID(id_producto);
             return ResponseEntity.ok(productoDTO);
         } catch (RuntimeException e){
             return ResponseEntity.notFound().build();
