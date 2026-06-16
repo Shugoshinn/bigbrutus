@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Cliente")
+@Table(name = "clientes")
 
 public class Cliente {
         @Id
@@ -44,6 +44,7 @@ public class Cliente {
         private String direccion;
 
         @NotNull(message = "Este campo no puede estar vacío")
+        @Column(name = "fecha_registro")
         private LocalDate fechaRegistro;
 
         @Column(nullable = false)

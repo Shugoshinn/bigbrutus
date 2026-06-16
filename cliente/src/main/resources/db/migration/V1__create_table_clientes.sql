@@ -4,6 +4,7 @@ CREATE TABLE clientes (
     apellido VARCHAR(50) NOT NULL,
     telefono VARCHAR(15),
     email VARCHAR(100) NOT NULL UNIQUE,
+    direccion VARCHAR(255) NOT NULL,
     fecha_registro DATE NOT NULL,
     activo BOOLEAN NOT NULL DEFAULT TRUE
 );
