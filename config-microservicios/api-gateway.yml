@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: vehiculos
+              uri: lb://vehiculos
+              predicates:
+                - Path=/api/v1/vehiculos/**
+
+            - id: sucursales
+              uri: lb://sucursales
+              predicates:
+                - Path=/api/v1/sucursales/**
+
+            - id: repartidores
+              uri: lb://repartidores
+              predicates:
+                - Path=/api/v1/repartidores/**
+
+            - id: clientes
+              uri: lb://clientes
+              predicates:
+                - Path=/api/v1/clientes/**
+
+            - id: cocineros
+              uri: lb://cocineros
+              predicates:
+                - Path=/api/v1/cocineros/**
+
+            - id: pedidos
+              uri: lb://pedidos
+              predicates:
+                - Path=/api/v1/pedidos/**
+
+            - id: productos
+              uri: lb://productos
+              predicates:
+                - Path=/api/v1/productos/**
+
+            - id: vendedores
+              uri: lb://vendedores
+              predicates:
+                - Path=/api/v1/vendedores/**

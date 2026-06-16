@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: cocineros
+  config:
+    import: optional:configserver:http://localhost:8888
