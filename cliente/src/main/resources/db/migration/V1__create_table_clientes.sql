@@ -6,5 +6,5 @@ CREATE TABLE clientes (
     email VARCHAR(100) NOT NULL UNIQUE,
     direccion VARCHAR(255) NOT NULL,
     fecha_registro DATE NOT NULL,
-    activo BOOLEAN NOT NULL DEFAULT TRUE
+    activo BOOLEAN DEFAULT TRUE
 );
