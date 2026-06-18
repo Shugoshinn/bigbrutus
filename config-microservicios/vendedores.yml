@@ -10,7 +10,7 @@ eureka:
     instance-id: ${spring.application.name}:${random.value}
     prefer-ip-address: true
 
-# CONFIGURACION DE credenciales de MYSQL
+# CONFIGURACION DE CREDENCIALES MYSQL
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/bd_vendedores
