@@ -26,7 +26,7 @@ public class Producto {
     @Size(max = 80, message= "La descripcion no puede superar los 80 caracteres")
     private String descripcion;
 
-    @NotBlank(message = "La categoría es obligatoria")
+    @NotNull(message = "La categoría es obligatoria")
     @Enumerated(EnumType.STRING)
     private CategoriaProducto categoria;
 
