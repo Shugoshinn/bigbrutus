@@ -22,7 +22,7 @@ public class Producto {
     private String nombre;
 
     @NotBlank(message = "La descripcion no puede estar vacia")
-    @Size(min = 10, message = "La descripcion no puede ser menor a los 10 caracteres")
+    @Size(min = 6, message = "La descripcion no puede ser menor a los 6 caracteres")
     @Size(max = 80, message= "La descripcion no puede superar los 80 caracteres")
     private String descripcion;
 
