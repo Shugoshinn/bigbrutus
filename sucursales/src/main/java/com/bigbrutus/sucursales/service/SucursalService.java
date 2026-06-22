@@ -42,7 +42,7 @@ public class SucursalService {
     public void deleteById(Long id) {
         if (!sucursalRepository.existsById(id)) {
             throw new NotFoundException("Sucursal no encontrada con id: " + id);
-        }
+        } sucursalRepository.deleteById(id);
     }
 
     // ***OTROS**

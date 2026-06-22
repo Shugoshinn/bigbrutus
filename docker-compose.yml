@@ -8,8 +8,17 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - ./init-db:/docker-entrypoint-initdb.d
-      - mysql_data:/var/lib/mysql
+    - ./mysql/init:/docker-entrypoint-initdb.d
+    - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - backend
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   eureka:
     restart: always
     build:
@@ -18,9 +27,17 @@ services:
     container_name: eureka
     ports:
       - "8761:8761"
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:8761" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   config-server:
     restart: always
     build:
@@ -34,11 +51,20 @@ services:
       - "8888:8888"
     volumes:
       - ./config-microservicios:/config-microservicios
+    networks:
+      - backend
     depends_on:
       mysql-db:
         condition: service_started
       eureka:
-        condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+
   cliente:
     restart: always
     build:
@@ -51,13 +77,17 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_clientes
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
+
+
   cocinero:
     restart: always
     build:
@@ -70,13 +100,15 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_cocineros
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
   pedido:
     restart: always
     build:
@@ -89,13 +121,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_pedidos
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
+
   producto:
     restart: always
     build:
@@ -108,13 +143,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_productos
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
+
   repartidores:
     restart: always
     build:
@@ -127,13 +165,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_repartidores
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
+
   sucursales:
     restart: always
     build:
@@ -146,13 +187,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_sucursales
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
+
   vehiculos:
     restart: always
     build:
@@ -165,13 +209,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_vehiculos
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
+
   vendedor:
     restart: always
     build:
@@ -184,13 +231,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/bd_vendedores
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
     depends_on:
       mysql-db:
-        condition: service_started
+        condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
+
   api-gateway:
     restart: always
     build:
@@ -202,6 +252,8 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
       SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+    networks:
+      - backend
     depends_on:
       - eureka
       - config-server
@@ -216,5 +268,9 @@ services:
       - mysql-db
 volumes:
   mysql_data:
+
+networks:
+  backend:
+    driver: bridge
 
 
