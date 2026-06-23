@@ -1,4 +1,4 @@
-CREATE TABLE Repartidores (
+CREATE TABLE repartidores (
                               id_repartidor BIGINT AUTO_INCREMENT PRIMARY KEY,
                               nombre VARCHAR(50) NOT NULL,
                               apellido VARCHAR(100) NOT NULL,

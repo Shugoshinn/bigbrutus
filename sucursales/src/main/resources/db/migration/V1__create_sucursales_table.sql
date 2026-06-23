@@ -1,4 +1,4 @@
-CREATE TABLE Sucursales (
+CREATE TABLE sucursales (
                             id_sucursal BIGINT AUTO_INCREMENT PRIMARY KEY,
                             nombre VARCHAR(50) NOT NULL,
                             direccion VARCHAR(255) NOT NULL,

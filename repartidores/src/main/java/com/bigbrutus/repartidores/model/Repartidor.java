@@ -14,7 +14,7 @@ import java.sql.Time;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Repartidores")
+@Table(name = "repartidores")
 public class Repartidor {
 
     @Id

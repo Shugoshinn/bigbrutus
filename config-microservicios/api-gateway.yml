@@ -69,21 +69,21 @@ springdoc:
     path: /swagger-ui.html
     urls:
       - name: vehiculos
-        url: v3/api-docs/vehiculos
+        url: /v3/api-docs/vehiculos
       - name: sucursales
-        url: v3/api-docs/sucursales
+        url: /v3/api-docs/sucursales
       - name: repartidores
-        url: v3/api-docs/repartidores
+        url: /v3/api-docs/repartidores
       - name: clientes
-        url: v3/api-docs/clientes
+        url: /v3/api-docs/clientes
       - name: cocineros
-        url: v3/api-docs/cocineros
+        url: /v3/api-docs/cocineros
       - name: pedidos
-        url: v3/api-docs/pedidos
+        url: /v3/api-docs/pedidos
       - name: productos
-        url: v3/api-docs/productos
+        url: /v3/api-docs/productos
       - name: vendedores
-        url: v3/api-docs/vendedores
+        url: /v3/api-docs/vendedores
 
 eureka:
   client:
